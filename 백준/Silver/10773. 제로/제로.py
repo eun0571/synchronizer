@@ -3,7 +3,7 @@ from collections import deque
 
 n = int(sys.stdin.readline())
 
-a = deque()
+a = []
 
 for i in range(n):
     num = int(sys.stdin.readline())
