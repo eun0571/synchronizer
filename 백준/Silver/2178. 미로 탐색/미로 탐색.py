@@ -20,8 +20,7 @@ def maze(x, y):
     candy = []
     while q:
         a = q.popleft()
-        if (a[0], a[1]) == (n - 1, m - 1):
-            candy.append(a[2])
+        
         x = a[0]
         y = a[1]
         for i in range(4):
@@ -30,6 +29,8 @@ def maze(x, y):
 
             if -1 < X < n and -1 < Y < m and matrix[X][Y]:
                 matrix[X][Y] = 0
+                if (X, Y) == (n - 1, m - 1):
+                    return a[2]+1
                 q.append((X, Y, a[2] + 1))
     return min(candy)
 
