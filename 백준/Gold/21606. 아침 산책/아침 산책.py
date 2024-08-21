@@ -1,34 +1,51 @@
 import sys
+from collections import deque
 
-n = int(sys.stdin.readline())
+input = sys.stdin.readline
 
-indoor = sys.stdin.readline().strip()
-indoor = [int(indoor[i]) for i in range(n)]
-c_l = [[] for _ in range(n)]
+n = int(input().strip())
+places = list(map(int, input().strip()))  # 1이면 실내, 0이면 실외
+graph = [[] for _ in range(n + 1)]
 
 for _ in range(n - 1):
-    x, y = map(int, sys.stdin.readline().split())
-    c_l[x - 1].append(y - 1)
-    c_l[y - 1].append(x - 1)
+    u, v = map(int, input().strip().split())
+    graph[u].append(v)
+    graph[v].append(u)
+
+# 실내와 실내를 직접 연결하는 경로를 찾기
+indoor_paths = 0
+for i in range(1, n + 1):
+    if places[i - 1] == 1:
+        for neighbor in graph[i]:
+            if places[neighbor - 1] == 1:
+                indoor_paths += 1
+
+# 실내-실외-실내 경로를 찾기
+visited = [False] * (n + 1)
 
 
-def walk(start):
-    answer = 0
-    for i in c_l[start]:
-        if not visited[i]:
-            visited[i] = 1
-            if indoor[i]:
-                answer += 1
-            else:
-                answer += walk(i)
-    return answer
+def bfs(start):
+    queue = deque([start])
+    visited[start] = True
+    indoor_count = 0
+
+    while queue:
+        node = queue.popleft()
+
+        for neighbor in graph[node]:
+            if places[neighbor - 1] == 1:
+                indoor_count += 1
+            if not visited[neighbor] and places[neighbor - 1] == 0:
+                visited[neighbor] = True
+                queue.append(neighbor)
+
+    return indoor_count * (indoor_count - 1)
 
 
-result = 0
-for i in range(n):
-    visited = [0 for _ in range(n)]
-    if indoor[i]:
-        visited[i] = 1
-        result += walk(i)
+outdoor_paths = 0
+for i in range(1, n + 1):
+    if not visited[i] and places[i - 1] == 0:
+        outdoor_paths += bfs(i)
 
+result = indoor_paths + outdoor_paths
 print(result)
