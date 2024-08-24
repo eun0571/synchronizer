@@ -7,9 +7,8 @@ beads = list(map(int, sys.stdin.readline().split()))
 heaviest = sum(weights)
 dp = [0 for i in range(heaviest + 1)]
 dp[0] = 1
-
+dp2 = [0 for i in range(heaviest + 1)]
 for weight in weights:
-    dp2 = [0 for i in range(heaviest + 1)]
     for i in range(heaviest, -1, -1):
         if dp[i]:
             if i + weight <= heaviest:
