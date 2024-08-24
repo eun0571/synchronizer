@@ -14,7 +14,7 @@ for weight in weights:
         if dp[i]:
             if i + weight <= heaviest:
                 dp2[i + weight] = 1
-            if abs(i - weight) <= heaviest:
+            if abs(i- weight) <= heaviest:
                 dp2[abs(i - weight)] = 1
     for i in range(heaviest, 0, -1):
         if dp2[i]:
