@@ -8,8 +8,8 @@ for _ in range(n):
 dp = [-1]*(k + 1)
 dp[0] = 0
 for w, v in goods:
-    for i in range(k, w-1, -1):
-        if dp[i - w] != -1:
-            dp[i] = max(dp[i], dp[i - w] + v)
+    for i in range(k-w, -1, -1):
+        if dp[i]!=-1:
+            dp[i+w]=max(dp[i+w],dp[i]+v)
 
 print(max(dp))
