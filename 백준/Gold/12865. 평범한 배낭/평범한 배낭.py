@@ -5,7 +5,7 @@ goods = []
 for _ in range(n):
     goods.append(list(map(int, sys.stdin.readline().split())))
 
-dp = [-1 for i in range(k + 1)]
+dp = [-1]*(k + 1)
 dp[0] = 0
 for w, v in goods:
     for i in range(k, -1, -1):
