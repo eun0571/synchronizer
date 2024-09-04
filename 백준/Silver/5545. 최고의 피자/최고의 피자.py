@@ -10,6 +10,6 @@ topping = []
 for i in range(n):
     cal = cal_d + sum(topping)
     price = price_d + len(topping) * price_t
-    if (cal // price) <= (cal + cal_t[i]) // (price + price_t):
+    if (cal / price) < (cal + cal_t[i]) / (price + price_t):
         topping.append(cal_t[i])
 print((cal_d + sum(topping)) // (price_d + len(topping) * price_t))
