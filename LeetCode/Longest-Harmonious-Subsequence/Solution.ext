@@ -1,0 +1,14 @@
+from collections import defaultdict
+
+
+class Solution:
+    def findLHS(self, nums: List[int]) -> int:
+        d = defaultdict(int)
+        for i in nums:
+            d[i] += 1
+        keys = sorted(list(d))
+        max_len = 0
+        for i in range(len(keys) - 1):
+            if keys[i] + 1 == keys[i + 1]:
+                max_len = max(max_len, d[keys[i]] + d[keys[i + 1]])
+        return max_len
